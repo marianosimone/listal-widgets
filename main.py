@@ -1,28 +1,21 @@
 import os
 
-from bottle import route, template, redirect, static_file, error, run
+from bottle import route, template, static_file, error, run
 
-
-@route('/home')
-def show_home():
-    return "Hello world!"
+import listal
 
 
 @route('/')
 def handle_root_url():
-    redirect('/home')
+    return static_file('index.html', root='views')
 
 
-@route('/profile')
-def make_request():
-    # make an API request here
-    profile_data = {'name': 'Marcel Hellkamp', 'role': 'Developer'}
-    return template('details', data=profile_data)
-
-
-@route('/css/<filename>')
-def send_css(filename):
-    return static_file(filename, root='static/css')
+@route('/user/:user/reading:is_json#(\.json)?#')
+def make_request(user, is_json):
+    items = listal.reading(user)
+    if is_json:
+        return {'items': items}
+    return template('items.tpl', items=items)
 
 
 @error(404)
@@ -33,4 +26,4 @@ def error404(error):
 if os.environ.get('APP_LOCATION') == 'heroku':
     run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 else:
-    run(host='localhost', port=8080, debug=True)
+    run(host='localhost', port=8080, debug=True, reloader=True)

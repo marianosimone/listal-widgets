@@ -1,7 +1,7 @@
 import os
 
 from bottle import app as bottle_app
-from bottle import response, request, route, template, static_file, error, run
+from bottle import response, request, template, static_file, run
 
 import listal
 
@@ -31,13 +31,19 @@ def handle_root_url():
     return static_file('index.html', root='views')
 
 
-@app.route('/user/:user/reading:is_json#(\.json)?#')
-def make_request(user, is_json):
+@app.route('/user/<user>/reading<is_json:re:(\.json)?>')
+def reading(user, is_json):
     items = listal.reading(user)
     if is_json:
         return {'items': items}
     return template('items.tpl', items=items)
 
+@app.route('/list/<name:re:[\w-]+><is_json:re:(\.json)?>')
+def list_details(name, is_json):
+    items = listal.list_details(name)
+    if is_json:
+        return {'items': items}
+    return template('items.tpl', items=items)
 
 @app.error(404)
 def error404(error):

@@ -48,7 +48,6 @@ def _get_items(url):
 
 def _get_data(user, collection, ownership, status):
     base_url = 'http://%s.listal.com/rss/%s/%s/1?sortby=dateadded-desc'  # TODO: Handle paging
-
     items = []
     used_query = ('&used=%s' % _statuses[status] ) if status != 'all' else ''
     for s in _status[collection][ownership]:
@@ -57,3 +56,18 @@ def _get_data(user, collection, ownership, status):
 
 def reading(user):
     return _get_data(user, 'books', 'all', 'using')
+
+def _extract_list_element_data(row):
+    image, content = row.find_all('div', recursive=False)
+    first, second = content.find_all('div', recursive=False)
+    return {
+        'image': image.find('img')['src'],
+        'title': first.find('a').text,
+        'url': first.find('a')['href'],
+        'comment': second.find('div').decode_contents(formatter='html')
+    }
+
+def list_details(name):
+    data = BeautifulSoup(urllib2.urlopen('http://www.listal.com/list/%s' % name).read())
+    rows = data.body.find_all(attrs={'class': 'notesrow'})
+    return [_extract_list_element_data(row) for row in rows]

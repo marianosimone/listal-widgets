@@ -1,8 +1,0 @@
-bottle==0.12.8
-beautifulsoup4
-
-# For testing
-
-nose
-nose-exclude
-nose-parameterized

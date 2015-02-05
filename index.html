@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>Example Listal Widgets</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        ul.widget {
+            list-style: none;
+            display: flex;
+            text-align: center;
+        }
+        .widget li {
+            width: 150px;
+        }
+        .title {
+            font-variant: small-caps;
+            font-weight: 700;
+        }
+        img {
+            margin: auto;
+            height: 70px;
+        }
+
+        .listal-widget-auto-rotator ul {
+            overflow:hidden;
+        }
+
+        .listal-widget-auto-rotator li{
+            position:absolute;
+            animation:round 12s infinite;
+            -webkit-animation:round 12s infinite;
+            -moz-animation:round 12s infinite;
+            -o-animation:round 12s infinite;
+            opacity:0;
+        }
+        @keyframes round { 25%{opacity:1; } 40% { opacity:0; } }
+        @-webkit-keyframes round { 25%{opacity:1; } 40% { opacity:0; } }
+        @-moz-keyframes round { 25%{opacity:1; } 40% { opacity:0; } }
+        @-o-keyframes round { 25%{opacity:1; } 40% { opacity:0; } }
+        .listal-widget-auto-rotator li:nth-child(3){animation-delay:0s;-webkit-animation-delay:0s;-moz-animation-delay:0s;-o-animation-delay:0s;}
+        .listal-widget-auto-rotator li:nth-child(2){animation-delay:4s;-webkit-animation-delay:4s;-moz-animation-delay:4s;-o-animation-delay:4s;}
+        .listal-widget-auto-rotator li:nth-child(1){animation-delay:8s;-webkit-animation-delay:8s;-moz-animation-delay:8s;-o-animation-delay:8s;}
+    </style>
+</head>
+<body>
+<h1>Some ideas on Listal widgets</h1>
+<h2>Motivation</h2>
+<p>Based on personal ideas and on some <a href="http://www.listal.com/viewimage/1381345">drafts by Pumpkinate</a>, I'm trying to get some Listal data available for users to do random stuff, like putting widgets on their websites</p>
+<p>My main driver is to be able to display my "Currently Reading Books" on my <a href="http://marianosimone.com">personal webpage</a>. This is already working and, if no one else seems interested in something like this, it's where development will most likely end</p>
+<p>Current implemented features are:</p>
+<ul>
+<li>Get list of currently reading books by user (json and html ul) (try out <a href="https://listal-widgets.herokuapp.com/user/marianosimone/reading.json">json</a> - <a href="https://listal-widgets.herokuapp.com/user/marianosimone/reading">html</a>)</li>
+    <li>Get list of elements in custom list (json and html ul) (try out <a href="https://listal-widgets.herokuapp.com/list/listals-favorite-animated-films.json">json</a> - <a href="https://listal-widgets.herokuapp.com/list/listals-favorite-animated-films">html</a>)</li>
+</ul>
+<p>Ideas for more features are:</p>
+<ul>
+    <li>Get list of wanted books/movies/music by user (json and html ul)</li>
+    <li>Get list of recently watched movies by user (json and html ul)</li>
+</ul>
+<h2>Examples of what could be done</h2>
+<div>
+    <h3>Simple Side-by-Side List Widget</h3>
+    <div class="listal-widget-simple">
+        <ul class="widget">
+            <li><img src="1.jpg"><br><span class="title">A Confederacy of Dunces</span> by <span class="people">John Kennedy Toole</span></li>
+            <li><img src="2.jpg"><br><span class="title">Thinking, Fast and Slow</span> by <span class="people">Daniel Kahneman</span></li>
+            <li><img src="3.jpg"><br><span class="title">Contagious: Why Things Catch On</span> by <span class="people">Jonah Berger</span></li>
+        </ul>
+    </div>
+</div>
+<div>
+    <h3>Simple Rotator Widget (automatic)</h3>
+    <div class="listal-widget-auto-rotator">
+        <ul class="widget">
+            <li><img src="1.jpg"><br><span class="title">A Confederacy of Dunces</span> by <span class="people">John Kennedy Toole</span></li>
+            <li><img src="2.jpg"><br><span class="title">Thinking, Fast and Slow</span> by <span class="people">Daniel Kahneman</span></li>
+            <li><img src="3.jpg"><br><span class="title">Contagious: Why Things Catch On</span> by <span class="people">Jonah Berger</span></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

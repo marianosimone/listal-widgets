@@ -41,7 +41,7 @@ def guess_attributes(item):
 
 
 def _get_items(url):
-    data = BeautifulSoup(urllib2.urlopen(url).read())
+    data = BeautifulSoup(urllib2.urlopen(url).read(), "html.parser")
     items = data.rss.find_all('item')
     return [guess_attributes(item) for item in items]
 

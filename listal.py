@@ -57,6 +57,9 @@ def _get_data(user, collection, ownership, status):
 def reading(user):
     return _get_data(user, 'books', 'all', 'using')
 
+def read(user):
+    return _get_data(user, 'books', 'used', 'all')
+
 def _extract_list_element_data(row):
     image, content = row.find_all('div', recursive=False)
     first, second = content.find_all('div', recursive=False)

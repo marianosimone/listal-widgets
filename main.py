@@ -1,7 +1,7 @@
 import os
 
 from bottle import app as bottle_app
-from bottle import response, request, template, static_file, run
+from bottle import abort, response, request, template, static_file, run
 
 import listal
 
@@ -30,13 +30,19 @@ app.install(EnableCors())
 def handle_root_url():
     return static_file('index.html', root='views')
 
+ACTIONS = {
+    'reading': listal.reading,
+    'read': listal.read
+}
 
-@app.route('/user/<user>/reading<is_json:re:(\.json)?>')
-def reading(user, is_json):
-    items = listal.reading(user)
-    if is_json:
-        return {'items': items}
-    return template('items.tpl', items=items)
+@app.route('/user/<user>/<action:re:[\w]+><is_json:re:(\.json)?>')
+def serve(user, action, is_json):
+    if action in ACTIONS:
+        items = ACTIONS[action](user)
+        if is_json:
+            return {'items': items}
+        return template('items.tpl', items=items)
+    abort(404)
 
 @app.route('/list/<name:re:[\w-]+><is_json:re:(\.json)?>')
 def list_details(name, is_json):

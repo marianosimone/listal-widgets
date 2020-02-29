@@ -1,5 +1,5 @@
-bottle==0.12.8
-beautifulsoup4==4.4.1
+bottle==0.12.18
+beautifulsoup4==4.8.2
 
 # For testing
 

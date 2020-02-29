@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import urllib2
+from urllib.request import urlopen
 import re
 
 
@@ -41,7 +41,7 @@ def guess_attributes(item):
 
 
 def _get_items(url):
-    data = BeautifulSoup(urllib2.urlopen(url).read(), "html.parser")
+    data = BeautifulSoup(urlopen(url).read(), "html.parser")
     items = data.rss.find_all('item')
     return [guess_attributes(item) for item in items]
 
@@ -71,6 +71,6 @@ def _extract_list_element_data(row):
     }
 
 def list_details(name):
-    data = BeautifulSoup(urllib2.urlopen('http://www.listal.com/list/%s' % name).read())
+    data = BeautifulSoup(urlopen('http://www.listal.com/list/%s' % name).read())
     rows = data.body.find_all(attrs={'class': 'notesrow'})
     return [_extract_list_element_data(row) for row in rows]

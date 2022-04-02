@@ -35,13 +35,13 @@ def guess_attributes(item):
         "title": item.find("title").text,
         "image": _image_finder.search(item.find("description").text).groups()[0],
         "status": _statuses[item.find("listal:used").text],
-        "since": item.find("pubdate").text,
+        "since": item.find("pubDate").text,
         "url": item.find("link").text,
     }
 
 
 def _get_items(url):
-    data = BeautifulSoup(urlopen(url).read(), "html.parser")
+    data = BeautifulSoup(urlopen(url).read(), "lxml-xml")
     items = data.rss.find_all("item")
     return [guess_attributes(item) for item in items]
 

@@ -47,7 +47,7 @@ def _get_items(url):
 
 
 def _get_data(user, collection, ownership, status):
-    base_url = 'http://%s.listal.com/rss/%s/%s/1?sortby=dateadded-desc'  # TODO: Handle paging
+    base_url = 'https://%s.listal.com/rss/%s/%s/1?sortby=dateadded-desc'  # TODO: Handle paging
     items = []
     used_query = ('&used=%s' % _statuses[status] ) if status != 'all' else ''
     for s in _status[collection][ownership]:
@@ -71,6 +71,6 @@ def _extract_list_element_data(row):
     }
 
 def list_details(name):
-    data = BeautifulSoup(urlopen('http://www.listal.com/list/%s' % name).read())
+    data = BeautifulSoup(urlopen('https://www.listal.com/list/%s' % name).read())
     rows = data.body.find_all(attrs={'class': 'notesrow'})
     return [_extract_list_element_data(row) for row in rows]

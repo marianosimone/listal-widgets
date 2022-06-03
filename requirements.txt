@@ -1,5 +1,5 @@
 # For serving the app
-bottle==0.12.19
+bottle==0.12.20
 
 # For parsing
 beautifulsoup4==4.10.0
